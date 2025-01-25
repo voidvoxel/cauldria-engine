@@ -41,7 +41,7 @@ build_lua () {
 # Compile a source file into an object file.
 build_executable () {
     submodule=$1
-    source_files=src/$submodule/$*.c
+    source_files=src/$submodule/*.c
     executable_file=bin/$submodule
 
     # Compile the source file into an object file.
