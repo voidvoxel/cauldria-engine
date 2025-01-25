@@ -2,6 +2,7 @@
 *.d
 
 # Compiled Object files
+build/
 *.slo
 *.lo
 *.o
@@ -13,6 +14,7 @@
 
 # Compiled Dynamic libraries
 *.so
+*.so.*
 *.dylib
 *.dll
 
@@ -21,12 +23,14 @@
 *.smod
 
 # Compiled Static libraries
+lib/
 *.lai
 *.la
 *.a
 *.lib
 
 # Executables
+bin/
 *.exe
 *.out
 *.app
