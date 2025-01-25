@@ -2,7 +2,7 @@
 *.d
 
 # Compiled Object files
-build/
+/build/
 *.slo
 *.lo
 *.o
@@ -23,14 +23,14 @@ build/
 *.smod
 
 # Compiled Static libraries
-lib/
+/lib/
 *.lai
 *.la
 *.a
 *.lib
 
 # Executables
-bin/
+/bin/
 *.exe
 *.out
 *.app
