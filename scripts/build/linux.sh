@@ -13,7 +13,7 @@ CC=gcc
 
 # C compiler flags
 CC_FLAGS_INCLUDE="-Iinclude/ -Idependencies/lua/ -Idependencies/raylib/include/"
-CC_FLAGS_LIBS="-lm"
+CC_FLAGS_LIBS="-Llib/ -lm -l:libraylib.a"
 CC_FLAGS="$CC_FLAGS_INCLUDE $CC_FLAGS_LIBS"
 CC_FLAGS_LUA_PREFIX="-O2 -std=c99"
 CC_FLAGS_LUA_LIBS="-lm"
