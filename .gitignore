@@ -1,7 +1,14 @@
 # Dependencies
+
+## Lua
 /dependencies/lua/*
 !/dependencies/lua/*.c
 !/dependencies/lua/*.h
+
+## Raylib
+/dependencies/raylib/include/*
+/dependencies/raylib/lib/*
+!/dependencies/raylib/include/*.h
 
 # Prerequisites
 *.d
