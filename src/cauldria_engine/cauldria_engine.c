@@ -18,7 +18,6 @@ int main(int argc, char **argv) {
     // Start the application.
     int error_code
         = cauldria_start_application(
-            cauldria_engine,
             application
         );
 

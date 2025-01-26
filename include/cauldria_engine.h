@@ -1,11 +1,13 @@
 #ifndef CAULDRIA_ENGINE_H
 #define CAULDRIA_ENGINE_H
 
-#include <stdlib.h>
+#include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #include <lua.h>
 #include <lualib.h>
+#include <lauxlib.h>
 #include <raylib.h>
 
 /* Structs */
@@ -16,6 +18,7 @@ struct cauldria_engine {
 
 struct cauldria_engine_application {
     struct cauldria_engine *engine;
+    bool is_running;
     lua_State *L;
 };
 
@@ -32,7 +35,6 @@ struct cauldria_engine_application * cauldria_load_application (
 
 // Start an instance of a Cauldria Engine application.
 int cauldria_start_application (
-    struct cauldria_engine *cauldria_engine,
     struct cauldria_engine_application *application
 );
 
@@ -43,7 +45,6 @@ void cauldria_stop_engine (
 
 // Stop a running instance of a Cauldria Engine application.
 void cauldria_stop_application (
-    struct cauldria_engine *cauldria_engine,
     struct cauldria_engine_application *application
 );
 
