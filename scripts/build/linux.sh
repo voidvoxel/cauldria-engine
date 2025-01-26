@@ -50,7 +50,6 @@ build_executable () {
 
 build_all_lib () {
     build_liblua
-    return 0
 }
 
 build_all_bin () {
