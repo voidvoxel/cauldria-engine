@@ -21,41 +21,43 @@ typedef struct Table {
 } Table;
 
 // Create a new hash table.
-struct Table * table_create (uint32_t bucket_count);
+struct Table * table_create (
+    uint32_t bucket_count
+);
 
 uint32_t table_hash (
-    Table *table,
+    struct Table *table,
     const char *str
 );
 
 // Create a new entry in the hash table
 TableEntry *table_create_entry(
     const char *key,
-    const char *value
+    void *value
 );
 
 // Insert a key-value pair into the hash table
 void table_insert(
-    Table *table,
+    struct Table *table,
     const char *key,
-    const char *value
+    void *value
 );
 
 // Search for a value by key in the hash table
 char *table_search(
-    Table *table,
+    struct Table *table,
     const char *key
 );
 
 // Delete a key-value pair from the hash table
 void table_delete(
-    Table *table,
+    struct Table *table,
     const char *key
 );
 
 // Free the memory allocated for the hash table
 void table_free(
-    Table *table
+    struct Table *table
 );
 
 #endif

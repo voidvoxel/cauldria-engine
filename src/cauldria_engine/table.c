@@ -1,9 +1,11 @@
 #include <table.h>
 
 // Create a new hash table.
-struct Table * table_create (uint32_t bucket_count)
+struct Table * table_create (
+    uint32_t bucket_count
+)
 {
-    Table *table = (Table *)malloc(sizeof(Table));
+    struct Table *table = (struct Table *)malloc(sizeof(Table));
 
     table->bucket_count = bucket_count;
 
@@ -17,7 +19,7 @@ struct Table * table_create (uint32_t bucket_count)
 }
 
 uint32_t table_hash (
-    Table *table,
+    struct Table *table,
     const char *str
 )
 {
@@ -27,7 +29,7 @@ uint32_t table_hash (
 // Create a new entry in the hash table
 TableEntry *table_create_entry(
     const char *key,
-    const char *value
+    void *value
 ) {
     TableEntry *entry = (TableEntry *)malloc(sizeof(TableEntry));
 
@@ -40,9 +42,9 @@ TableEntry *table_create_entry(
 
 // Insert a key-value pair into the hash table
 void table_insert(
-    Table *table,
+    struct Table *table,
     const char *key,
-    const char *value
+    void *value
 )
 {
     uint32_t hash_index = table_hash(table, key);
@@ -65,7 +67,7 @@ void table_insert(
 
 // Search for a value by key in the hash table
 char *table_search(
-    Table *table,
+    struct Table *table,
     const char *key
 )
 {
@@ -87,7 +89,7 @@ char *table_search(
 
 // Delete a key-value pair from the hash table
 void table_delete(
-    Table *table,
+    struct Table *table,
     const char *key
 )
 {
@@ -116,7 +118,7 @@ void table_delete(
 
 // Free the memory allocated for the hash table
 void table_free(
-    Table *table
+    struct Table *table
 )
 {
     for (int i = 0; i < table->bucket_count; i++) {
