@@ -1,8 +1,7 @@
-local settings = {}
+application.name = "debug"
+application.version = "0.0.0"
+application.dependencies = {}
 
-settings.name = "debug"
-settings.version = "0.0.0"
-
-settings.dependencies = {}
-
-return settings
+function application:on_exit ()
+    print "Exiting..."
+end
