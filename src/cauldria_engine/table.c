@@ -41,7 +41,7 @@ TableEntry *table_create_entry(
 }
 
 // Insert a key-value pair into the hash table
-void table_insert(
+void table_set(
     struct Table *table,
     const char *key,
     void *value
@@ -66,7 +66,7 @@ void table_insert(
 }
 
 // Search for a value by key in the hash table
-char *table_search(
+void *table_get(
     struct Table *table,
     const char *key
 )
@@ -80,6 +80,7 @@ char *table_search(
             // Key found, return the associated value
             return current->value;
         }
+
         current = current->next;
     }
 
@@ -88,7 +89,7 @@ char *table_search(
 }
 
 // Delete a key-value pair from the hash table
-void table_delete(
+void table_delete_entry(
     struct Table *table,
     const char *key
 )
@@ -117,7 +118,7 @@ void table_delete(
 }
 
 // Free the memory allocated for the hash table
-void table_free(
+void table_delete(
     struct Table *table
 )
 {
