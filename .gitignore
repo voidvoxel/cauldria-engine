@@ -6,9 +6,7 @@
 !/dependencies/lua/*.h
 
 ## Raylib
-/dependencies/raylib/include/*
-/dependencies/raylib/lib/*
-!/dependencies/raylib/include/*.h
+/dependencies/raylib/lib/
 
 # Prerequisites
 *.d
