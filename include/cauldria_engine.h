@@ -10,23 +10,33 @@
 #include <lauxlib.h>
 #include <raylib.h>
 
+#include <cauldria_engine/id.h>
+#include <cauldria_engine/voxel.h>
+
+/* Typedefs */
+
+typedef uint8_t cauldria_CameraMode;
+
 /* Structs */
 
-typedef unsigned char cauldria_CameraMode;
+typedef struct cauldria_Engine cauldria_Engine;
+typedef struct cauldria_EngineApplication cauldria_EngineApplication;
+typedef struct cauldria_VoxelEngine cauldria_VoxelEngine;
 
-struct cauldria_engine {
+typedef struct cauldria_Engine {
     bool is_running;
-    struct cauldria_engine_application *application;
-};
+    cauldria_EngineApplication *application;
+    cauldria_VoxelEngine *voxel_engine;
+} cauldria_Engine;
 
-struct cauldria_engine_application {
-    struct cauldria_engine *engine;
+typedef struct cauldria_EngineApplication {
+    cauldria_Engine *engine;
     bool is_running;
     lua_State *L;
     char *source_code;
     Camera3D main_camera;
     cauldria_CameraMode camera_mode;
-};
+} cauldria_EngineApplication;
 
 /* Functions */
 
@@ -34,27 +44,27 @@ cauldria_CameraMode cauldria_camera_mode_2d();
 cauldria_CameraMode cauldria_camera_mode_3d();
 
 // Start an instance of the Cauldria Engine.
-struct cauldria_engine * cauldria_start_engine ();
+cauldria_Engine * cauldria_start_engine ();
 
 // Load a Cauldria Engine application.
-struct cauldria_engine_application * cauldria_load_application (
-    struct cauldria_engine *cauldria_engine,
+cauldria_EngineApplication * cauldria_load_application (
+    cauldria_Engine *cauldria_engine,
     char *application_path
 );
 
 // Start an instance of a Cauldria Engine application.
 int cauldria_start_application (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 );
 
 // Stop a running instance of the Cauldria Engine.
 void cauldria_stop_engine (
-    struct cauldria_engine *cauldria_engine
+    cauldria_Engine *cauldria_engine
 );
 
 // Stop a running instance of a Cauldria Engine application.
 void cauldria_stop_application (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 );
 
 /* class caudria_GameObject */
