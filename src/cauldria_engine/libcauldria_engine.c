@@ -46,6 +46,9 @@ struct cauldria_engine * cauldria_start_engine ()
     // Note that the engine is running.
     cauldria_engine->is_running = true;
 
+    // Set the trace log level to `LOG_ERROR`.
+    SetTraceLogLevel(LOG_ERROR);
+
     // Return the engine instance.
     return cauldria_engine;
 }
@@ -75,14 +78,18 @@ int cauldria_start_application (
     struct cauldria_engine_application *application
 )
 {
-    // TODO: Load the actual application code.
+    // Get the application instance's Lua state.
     lua_State *L = application->L;
 
-    char * code = "print \"Hello, world!\"";
+    // Get the application's source code.
+    char *source_code = application->source_code;
 
-    if (luaL_dostring(L, code) == LUA_OK) {
+    // Run the application's source code.
+    if (luaL_dostring(L, source_code) == LUA_OK) {
+        // Remove the loaded function from the stack.
         lua_pop(L, lua_gettop(L));
     }
+
     // Note that the application is running.
     application->is_running = true;
 
