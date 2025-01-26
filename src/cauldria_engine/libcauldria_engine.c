@@ -4,6 +4,11 @@
 #include <path.h>
 #include <raylib.h>
 
+/* Constants */
+
+const cauldria_CameraMode CAULDRIA_CAMERA_MODE_3D = 0b00000000;
+const cauldria_CameraMode CAULDRIA_CAMERA_MODE_2D = 0b00000001;
+
 /* Private API */
 
 char* _cauldria_concat(const char *s1, const char *s2)
@@ -25,6 +30,22 @@ void _cauldria_initialize_script_engine (
 void _cauldria_load_application_source_code (
     struct cauldria_engine_application *application,
     char *application_path
+);
+
+void _cauldria_main_loop (
+    struct cauldria_engine_application *application
+);
+
+void _cauldria_main_loop_draw (
+    struct cauldria_engine_application *application
+);
+
+void _cauldria_main_loop_tick (
+    struct cauldria_engine_application *application
+);
+
+void _cauldria_open_window (
+    struct cauldria_engine_application *application
 );
 
 char * _cauldria_wrap_application_code (
@@ -100,6 +121,54 @@ void _cauldria_load_application_source_code (
     application->source_code = LoadFileText(init_script_path);
 }
 
+void _cauldria_main_loop (
+    struct cauldria_engine_application *application
+)
+{
+    _cauldria_main_loop_tick(application);
+    _cauldria_main_loop_draw(application);
+}
+
+void _cauldria_main_loop_draw (
+    struct cauldria_engine_application *application
+)
+{
+    // Enter Draw Mode.
+    BeginDrawing();
+
+    // Clear the background with black.
+    ClearBackground(BLACK);
+
+    // Draw the main camera's perspective.
+    BeginMode3D(application->main_camera);
+    Vector3 position = (Vector3) { 1.0f, -1.0f, 1.0f };
+    application->main_camera.target = position;
+    DrawCube(position, 1.0f, 1.0f, 1.0f, GRAY);
+    EndMode3D();
+
+    EndDrawing();
+}
+
+void _cauldria_main_loop_tick (
+    struct cauldria_engine_application *application
+)
+{
+    // TODO: Not yet implemented.
+}
+
+void _cauldria_open_window (
+    struct cauldria_engine_application *application
+)
+{
+    InitWindow(640, 480, "Cauldria Engine");
+
+    while (!WindowShouldClose()) {
+        _cauldria_main_loop(application);
+    }
+
+    CloseWindow();
+}
+
 char * _cauldria_wrap_application_code (
     char *source_code_body
 )
@@ -123,6 +192,16 @@ char * _cauldria_wrap_application_code (
 }
 
 /* Public API */
+
+cauldria_CameraMode cauldria_camera_mode_2d()
+{
+    return CAULDRIA_CAMERA_MODE_2D;
+}
+
+cauldria_CameraMode cauldria_camera_mode_3d()
+{
+    return CAULDRIA_CAMERA_MODE_3D;
+}
 
 struct cauldria_engine * cauldria_start_engine ()
 {
@@ -150,11 +229,24 @@ struct cauldria_engine_application * cauldria_load_application (
     // Note that the application is not running.
     application->is_running = false;
 
+    application->camera_mode = cauldria_camera_mode_3d();
+
+    Camera3D main_camera = { 0 };
+    main_camera.position = (Vector3) { 0.0f, 0.0f, 5.0f };
+    main_camera.target = (Vector3) { 0.0f, 0.0f, 0.0f };
+    main_camera.up = (Vector3) { 0.0f, 1.0f, 0.0f };
+    main_camera.fovy = 45.0f;
+    main_camera.projection = CAMERA_PERSPECTIVE;
+    application->main_camera = main_camera;
+
     // Load the application's source code.
     _cauldria_load_application_source_code(application, application_path);
 
     // Initialize the script engine.
     _cauldria_initialize_script_engine(application);
+
+    // Open the window.
+    _cauldria_open_window(application);
 
     // Run the application's source code.
     _cauldria_run_application(application);

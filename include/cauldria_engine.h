@@ -12,6 +12,8 @@
 
 /* Structs */
 
+typedef unsigned char cauldria_CameraMode;
+
 struct cauldria_engine {
     bool is_running;
     struct cauldria_engine_application *application;
@@ -22,9 +24,14 @@ struct cauldria_engine_application {
     bool is_running;
     lua_State *L;
     char *source_code;
+    Camera3D main_camera;
+    cauldria_CameraMode camera_mode;
 };
 
 /* Functions */
+
+cauldria_CameraMode cauldria_camera_mode_2d();
+cauldria_CameraMode cauldria_camera_mode_3d();
 
 // Start an instance of the Cauldria Engine.
 struct cauldria_engine * cauldria_start_engine ();
