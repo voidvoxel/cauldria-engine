@@ -5,7 +5,7 @@ char *DEFAULT_APPLICATION_PATH = "debug";
 int main(int argc, char **argv) {
     char *application_path = DEFAULT_APPLICATION_PATH;
 
-    // Start the application engine.
+    // Start the engine.
     struct cauldria_engine *cauldria_engine = cauldria_start_engine();
 
     // Load the application.
@@ -20,6 +20,9 @@ int main(int argc, char **argv) {
         = cauldria_start_application(
             application
         );
+
+    // Stop the engine.
+    cauldria_stop_engine(cauldria_engine);
 
     // Return the exit code returned by the application.
     return error_code;
