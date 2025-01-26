@@ -1,3 +1,8 @@
+# Dependencies
+/dependencies/lua/*
+!/dependencies/lua/*.c
+!/dependencies/lua/*.h
+
 # Prerequisites
 *.d
 
