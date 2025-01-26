@@ -6,10 +6,10 @@ int main(int argc, char **argv) {
     char *application_path = DEFAULT_APPLICATION_PATH;
 
     // Start the engine.
-    struct cauldria_engine *cauldria_engine = cauldria_start_engine();
+    cauldria_Engine *cauldria_engine = cauldria_start_engine();
 
     // Load the application.
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
         = cauldria_load_application(
             cauldria_engine,
             application_path
