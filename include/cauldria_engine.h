@@ -13,6 +13,7 @@
 /* Structs */
 
 struct cauldria_engine {
+    bool is_running;
     struct cauldria_engine_application *application;
 };
 
@@ -20,6 +21,7 @@ struct cauldria_engine_application {
     struct cauldria_engine *engine;
     bool is_running;
     lua_State *L;
+    char *source_code;
 };
 
 /* Functions */
