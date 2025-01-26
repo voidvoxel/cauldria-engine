@@ -24,28 +24,28 @@ char* _cauldria_concat(const char *s1, const char *s2)
 
 
 void _cauldria_initialize_script_engine (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 );
 
 void _cauldria_load_application_source_code (
-    struct cauldria_engine_application *application,
+    cauldria_EngineApplication *application,
     char *application_path
 );
 
 void _cauldria_main_loop (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 );
 
 void _cauldria_main_loop_draw (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 );
 
 void _cauldria_main_loop_tick (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 );
 
 void _cauldria_open_window (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 );
 
 char * _cauldria_wrap_application_code (
@@ -53,7 +53,7 @@ char * _cauldria_wrap_application_code (
 );
 
 void _cauldria_initialize_script_engine (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 )
 {
     // Create a new Lua state for the application instance.
@@ -64,7 +64,7 @@ void _cauldria_initialize_script_engine (
 }
 
 void _cauldria_run_application (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 )
 {
     // Get the application instance's Lua state.
@@ -110,7 +110,7 @@ void _cauldria_run_application (
 }
 
 void _cauldria_load_application_source_code (
-    struct cauldria_engine_application *application,
+    cauldria_EngineApplication *application,
     char *application_path
 )
 {
@@ -122,7 +122,7 @@ void _cauldria_load_application_source_code (
 }
 
 void _cauldria_main_loop (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 )
 {
     _cauldria_main_loop_tick(application);
@@ -130,7 +130,7 @@ void _cauldria_main_loop (
 }
 
 void _cauldria_main_loop_draw (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 )
 {
     // Enter Draw Mode.
@@ -150,14 +150,14 @@ void _cauldria_main_loop_draw (
 }
 
 void _cauldria_main_loop_tick (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 )
 {
     // TODO: Not yet implemented.
 }
 
 void _cauldria_open_window (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 )
 {
     InitWindow(640, 480, "Cauldria Engine");
@@ -203,10 +203,15 @@ cauldria_CameraMode cauldria_camera_mode_3d()
     return CAULDRIA_CAMERA_MODE_3D;
 }
 
-struct cauldria_engine * cauldria_start_engine ()
+cauldria_Id cauldria_hash (const char *value)
+{
+    return (cauldria_Id) djb2(value);
+}
+
+cauldria_Engine * cauldria_start_engine ()
 {
     // Create a new instance of the Cauldria Engine.
-    struct cauldria_engine *cauldria_engine = malloc(sizeof(struct cauldria_engine));
+    cauldria_Engine *cauldria_engine = malloc(sizeof(cauldria_Engine));
 
     // Note that the engine is running.
     cauldria_engine->is_running = true;
@@ -214,17 +219,19 @@ struct cauldria_engine * cauldria_start_engine ()
     // Set the trace log level to `LOG_ERROR`.
     SetTraceLogLevel(LOG_ERROR);
 
+    cauldria_engine->voxel_engine = cauldria_start_voxel_engine(cauldria_engine);
+
     // Return the engine instance.
     return cauldria_engine;
 }
 
-struct cauldria_engine_application * cauldria_load_application (
-    struct cauldria_engine *cauldria_engine,
+cauldria_EngineApplication * cauldria_load_application (
+    cauldria_Engine *cauldria_engine,
     char *application_path
 )
 {
     // Create a new instance of the application.
-    struct cauldria_engine_application *application = malloc(sizeof(struct cauldria_engine_application));
+    cauldria_EngineApplication *application = malloc(sizeof(cauldria_EngineApplication));
 
     // Note that the application is not running.
     application->is_running = false;
@@ -256,7 +263,7 @@ struct cauldria_engine_application * cauldria_load_application (
 }
 
 int cauldria_start_application (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 )
 {
     // Note that the application is running.
@@ -270,7 +277,7 @@ int cauldria_start_application (
 }
 
 void cauldria_stop_engine (
-    struct cauldria_engine *cauldria_engine
+    cauldria_Engine *cauldria_engine
 )
 {
     // If the engine instance does not exist or is not running, return.
@@ -285,7 +292,7 @@ void cauldria_stop_engine (
 }
 
 void cauldria_stop_application (
-    struct cauldria_engine_application *application
+    cauldria_EngineApplication *application
 )
 {
     // If the application instance does not exist or is not running, return.
