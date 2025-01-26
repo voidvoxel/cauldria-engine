@@ -1,6 +1,6 @@
 #include <cauldria_engine.h>
 
-char *DEFAULT_APPLICATION_PATH = "debug";
+char *DEFAULT_APPLICATION_PATH = "src/games/debug";
 
 int main(int argc, char **argv) {
     char *application_path = DEFAULT_APPLICATION_PATH;
