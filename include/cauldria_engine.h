@@ -5,7 +5,10 @@
 #include <stdint.h>
 
 #include <lua.h>
+#include <lualib.h>
 #include <raylib.h>
+
+/* Structs */
 
 struct cauldria_engine {
     struct cauldria_engine_application *application;
@@ -13,7 +16,10 @@ struct cauldria_engine {
 
 struct cauldria_engine_application {
     struct cauldria_engine *engine;
+    lua_State *L;
 };
+
+/* Functions */
 
 // Start an instance of the Cauldria Engine.
 struct cauldria_engine * cauldria_start_engine ();
