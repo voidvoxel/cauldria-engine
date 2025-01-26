@@ -6,7 +6,7 @@ TARGET_OS=linux
 TARGET_PLATFORM=$TARGET_OS-$TARGET_ARCH
 
 # Clean the build environment.
-scripts/clean.sh
+# scripts/clean.sh
 
 # C compiler
 CC=gcc
@@ -30,11 +30,19 @@ LIBLUA_SOURCE_FILES=dependencies/lua/onelua.c
 LUA_SOURCE_FILES=$LIBLUA_SOURCE_FILES
 
 build_liblua () {
+    if [ -f ./lib/liblua.a ]; then
+        return 0
+    fi
+
     $CC $CC_FLAGS_LUA_PREFIX -c $LIBLUA_SOURCE_FILES -o build/liblua.o $CC_FLAGS_LIBLUA
     ar rcs lib/liblua.a build/liblua.o
 }
 
 build_lua () {
+    if [ -f ./bin/lua ]; then
+        return 0
+    fi
+
     $CC $CC_FLAGS_LUA_PREFIX $LUA_SOURCE_FILES -o bin/lua $CC_FLAGS_LUA
 }
 
