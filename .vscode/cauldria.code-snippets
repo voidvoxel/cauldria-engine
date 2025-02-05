@@ -1,0 +1,81 @@
+{
+	// Place your cauldria workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Cauldria class": {
+		"scope": "cpp",
+		"prefix": "cauldria_class_decl",
+		"body": [
+			"namespace voidvoxel::cauldria",
+			"{",
+			"    class ${1:ClassName}",
+			"    {",
+			"    public:",
+			"        ${1:ClassName}();",
+			"        ~${1:ClassName}();",
+			"        void render();",
+			"        void tick();$0",
+			"    };",
+			"}"
+		]
+	},
+	"Cauldria class implementation": {
+		"scope": "cpp",
+		"prefix": "cauldria_class_impl",
+		"body": [
+			"#include \"${1:ClassName}.hpp\"",
+			"",
+			"voidvoxel::cauldria::${1:ClassName}::${1:ClassName}()",
+			"{",
+			"$0",
+			"}",
+			"",
+			"voidvoxel::cauldria::${1:ClassName}::~${1:ClassName}()",
+			"{",
+			"",
+			"}",
+			"",
+			"void voidvoxel::cauldria::${1:ClassName}::render()",
+			"{",
+			"",
+			"}",
+			"",
+			"void voidvoxel::cauldria::${1:ClassName}::tick()",
+			"{",
+			"",
+			"}"
+		]
+	},
+	"Cauldria include guard": {
+		"scope": "cpp",
+		"prefix": "cauldria_include_guard",
+		"body": [
+			"#if !defined(${1:VOIDVOXEL__CAULDRIA__})",
+			"#define ${1:VOIDVOXEL__CAULDRIA__}",
+			"",
+			"$0",
+			"",
+			"#endif"
+		]
+	},
+	"Cauldria namespace": {
+		"scope": "cpp",
+		"prefix": "cauldria",
+		"body": [
+			"voidvoxel::cauldria"
+		]
+	}
+}
