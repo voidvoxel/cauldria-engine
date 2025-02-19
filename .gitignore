@@ -1,3 +1,6 @@
+# Imported Dependencies
+src/external
+
 # Logs
 logs
 *.log
