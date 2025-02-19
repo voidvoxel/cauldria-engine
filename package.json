@@ -1,5 +1,5 @@
 {
-  "name": "@voidvoxel/cauldria",
+  "name": "@cauldria/engine-desktop",
   "version": "0.0.0",
-  "description": ""
+  "description": "The Cauldria Engine is a cross-platform engine designed to create applications and games."
 }
